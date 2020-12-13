@@ -32,7 +32,7 @@ const employeeSchema = new Schema({
     Phone: {
         type: String,
         minlength:10,
-        maxlength:15,
+        maxlength:14,
         required: [true, 'phoneNumber is required'],
         validate: {
             validator: function(value){

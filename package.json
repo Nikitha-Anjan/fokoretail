@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "csv-append": "^1.0.0",
     "csv-parse": "^4.14.1",
     "csv-parser": "^3.0.0",
     "csv-stringify": "^5.5.3",
