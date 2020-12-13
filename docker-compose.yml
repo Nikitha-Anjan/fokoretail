@@ -1,0 +1,10 @@
+# using docker-compose version 3
+version: "3"
+services:
+  # my custom service name
+  database:
+    image: 'mongo'
+    container_name: 'fokoretail'
+    #host port to container port
+    ports:
+      - "27017:27017"
