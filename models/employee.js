@@ -11,7 +11,7 @@ const employeeSchema = new Schema({
         validate: {
             validator: function(value){
                 let str = 'abcdefghijklmnopqrstuvwxyz'
-                if(!(value[0].toLowerCase().includes(str) && isNumeric(value.slice(1)))){
+                if(!(str.includes(value[0].toLowerCase()) && isNumeric(value.slice(1)))){
                     return false
                 }
                 return true
@@ -32,11 +32,11 @@ const employeeSchema = new Schema({
     phoneNumber: {
         type: String,
         minlength:10,
-        maxlength:14,
+        maxlength:15,
         required: [true, 'phoneNumber is required'],
         validate: {
             validator: function(value){
-                let regex = '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'
+                let regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/
                 if (!regex.test(value)){
                     return false 
                 }
@@ -52,7 +52,7 @@ const employeeSchema = new Schema({
         required: [true, 'email is required'],
         validate: {
             validator: function(value){
-                let regex = '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'
+                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
                 if (!regex.test(value)){
                     return false 
                 }
