@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 const isNumeric= require('validator/lib/isNumeric')
 
 const employeeSchema = new Schema({
-    employeeID: {
+    EmployeeID: {
         type: String, 
         required: true, 
         minlength: 7,
@@ -21,15 +21,15 @@ const employeeSchema = new Schema({
             }
         }
     },
-    firstName: {
+    Fname: {
         type: String, 
         required: [true, 'firstName is required']
     }, 
-    lastName: {
+    Lname: {
         type: String, 
         required: [true, 'lastName is required']
     },
-    phoneNumber: {
+    Phone: {
         type: String,
         minlength:10,
         maxlength:15,
@@ -47,7 +47,7 @@ const employeeSchema = new Schema({
             }
         }
     },
-    email: {
+    Email: {
         type: String,
         required: [true, 'email is required'],
         validate: {

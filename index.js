@@ -6,7 +6,7 @@ const configureDB = require('./config/database');
 const Employee = require('./models/employee');
 const port = 3075
 configureDB()
-
+let count =0
 
 // For employee collectioon
 
@@ -14,25 +14,26 @@ fs.createReadStream('data.csv')
   .pipe(csv())
   .on('data', (data) => {
     
+    count++
+
     for (var key in data) {
         data[key.trim()] = data[key].trim();
     }
     delete data[key]
 
     var employee = new Employee({
-        employeeID: data['EmployeeID'],
-        firstName: data['First Name'],
-        lastName: data['Last Name'],
-        phoneNumber: data['Phone Number'],
-        email: data['Email']
+        EmployeeID: data['EmployeeID'],
+        Fname: data['First Name'],
+        Lname: data['Last Name'],
+        Phone: data['Phone Number'],
+        Email: data['Email']
     });
     //save in database
-    employee.save(function (err) {
+    employee.save(function (err, savedObj) {
         if (err) {
-            console.log("There is an error in processing employee data: " + err);
+            console.log("Line Number" +count+"There is an error in processing employee data: " + err);
         } else {
             console.log("Employee data has been saved");
-
             var myArgs = process.argv.slice(2)
 
             if(myArgs[1] == '--output=./'){
@@ -40,9 +41,13 @@ fs.createReadStream('data.csv')
                 const csvWriter = createCsvWriter({
                     path: './output.csv',
                     header:['EmployeeID','Fname','Lname','Phone','Email','Date Created','Date Updated']
-                });
+                })
+                
+                savedObj['Date Created'] = savedObj['createdAt']
+                savedObj['Date Updated'] = savedObj['updatedAt']
+                var csvdata = Object.values(savedObj)
 
-                csvWriter.writeRecords(data)       // returns a promise
+                csvWriter.writeRecords(csvdata)       // returns a promise
                     .then(() => {
                         console.log('...Done');
                     });
